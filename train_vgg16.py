@@ -124,7 +124,7 @@ def show(threshold=.5):
     vis.show_batch_autoscaled(noisy_x,name='input')
     vis.show_batch_autoscaled(rec,name='recon(quant)')
     vis.show_batch_autoscaled(rec2,name='recon(no quant)')
-
+    #compute the Mean Sqare Error
     mse=noisy_x-rec2
     
     #print(mse)
@@ -139,11 +139,9 @@ def show(threshold=.5):
     print("MSE=")
     mean=sum_sq_error/(32*32*16)
     print(mean)
-
     temp=1/mean
     PSNR=10*math.log10(temp)
     print("PSNR")
     print(PSNR)
-    #mean=
 
 show()

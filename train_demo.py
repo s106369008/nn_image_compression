@@ -119,7 +119,6 @@ def r(ep=1,cnoise=0.1):
 
 def show(threshold=.5):
     from cv2tools import vis,filt
-    import math
     bs = 16
     j = np.random.choice(len(xt)-16)
     minibatch = xt[j:j+bs]
@@ -169,10 +168,6 @@ def show(threshold=.5):
     print("MSE=")
     mean=sum_sq_error/(32*32*16)
     print(mean)
-    temp=1/mean
-    PSNR=10*math.log10(temp)
-    print("PSNR")
-    print(PSNR)
 
     #..................
 
