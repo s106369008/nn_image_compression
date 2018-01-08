@@ -114,7 +114,7 @@ def r(ep=1,cnoise=0.1):
             loss = feed(minibatch,cnoise)
             print(j,'loss:',loss)
 
-            if j%1000==0:
+            if j%50==0:
                 show()
 
 def show(threshold=.5):
@@ -123,6 +123,9 @@ def show(threshold=.5):
     j = np.random.choice(len(xt)-16)
     minibatch = xt[j:j+bs]
     code, rec, code2, rec2, noisy_x = test(minibatch,threshold)
+
+
+
 
     code = np.transpose(code[0:1],axes=(3,1,2,0))
     code2 = np.transpose(code2[0:1],axes=(3,1,2,0))
@@ -133,6 +136,72 @@ def show(threshold=.5):
     vis.show_batch_autoscaled(noisy_x,name='input')
     vis.show_batch_autoscaled(rec,name='recon(quant)')
     vis.show_batch_autoscaled(rec2,name='recon(no quant)')
+
+    #..................
+    #import csv
+    #import numpy
+    #np.set_printoptions(threshold=np.inf)
+    #f_code = open("code.csv","w")
+    #w_code = csv.writer(f_code)
+    #w_code.writerow(code2)
+
+    #f_code = open("input.csv","w")
+   # w_code = csv.writer(f_code)
+    #w_code.writerow(noisy_x)
+    
+   # f_code = open("rec2.csv","w")
+   # w_code = csv.writer(f_code)
+   # w_code.writerow(rec2)
+
+     #compute the Mean Sqare Error
+    mse=noisy_x-rec2
+    
+    #print(mse)
+    sq_mse=np.power(mse,2)
+    #abs_mse=abs(mse)
+    print("******************")
+    #print(sq_mse)
+    sum_sq_error=sq_mse.sum()
+    #print (sum_sq_error)
+    #print("legth")
+    #print(len(noisy_x[0][0]))
+    print("MSE=")
+    mean=sum_sq_error/(32*32*16)
+    print(mean)
+
+    #..................
+
+
+
+
+def image_data_show():
+    import csv
+    import numpy
+    #writer = csv.writer("wrtie.csv", delimiter=';', quotechar="'", quoting=csv.QUOTE_ALL)
+    
+    np.set_printoptions(threshold=np.inf)
+    f1 = open("code.csv","w")
+    w1 = csv.writer(f1)
+    bs = 16
+    j = np.random.choice(len(xt)-16)
+    minibatch = xt[j:j+bs]
+    code, rec, code2, rec2, noisy_x = test(minibatch,0.5)
+    
+    #print (code)
+    #print("legth of compression binary:")
+    #print(len(code))
+    w1.writerow(code)
+    
+
+    #code = np.transpose(code[0:1],axes=(3,1,2,0))
+    #code.tolist()
+    
+    #print (code)
+    #print(len(code))
+    #np.savetxt('file.txt', code)
+    #print code
+    #print "#########################"
+    #print rec
 
 def save():
     enc.save_weights('enc.npy')
@@ -152,4 +221,5 @@ load()
 if __name__ == '__main__':
     feed,test = get_trainer()
     get_session().run(ct.gvi())
+    #image_data_show()
     #show()
