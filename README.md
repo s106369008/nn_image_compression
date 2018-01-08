@@ -48,7 +48,7 @@ If you need visualization functionality:
 
 ## How it works
 
-> 中文读者可以直接看我的博客，有配图：<https://ctmakro.github.io/site/on_learning/npeg/npeg.html>
+
 
 For English readers:
 
@@ -74,6 +74,4 @@ Testing:
 
 ## About
 
-Author: Qin Yongliang
-
-License: MIT
+Author: 
